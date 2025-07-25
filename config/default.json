@@ -1,0 +1,71 @@
+{
+  "enabled": true,
+  "patterns": {
+    "email": {
+      "enabled": true,
+      "regex": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z][a-zA-Z]+",
+      "placeholder_prefix": "EMAIL",
+      "description": "Email addresses pattern matching"
+    },
+    "ipv4": {
+      "enabled": true,
+      "regex": "\\d+\\.\\d+\\.\\d+\\.\\d+",
+      "placeholder_prefix": "IP",
+      "description": "IPv4 addresses pattern matching"
+    },
+    "organizations": {
+      "enabled": true,
+      "static_list": [
+        "Google", "Microsoft", "Amazon", "Facebook", "Apple", "Netflix",
+        "Tesla", "Twitter", "LinkedIn", "Instagram", "YouTube", "GitHub",
+        "Oracle", "IBM", "Intel", "AMD", "NVIDIA", "Samsung", "Sony", "LG",
+        "Alibaba", "Tencent", "Baidu", "ByteDance", "Xiaomi", "Huawei",
+        "Spotify", "Uber", "Airbnb", "Dropbox", "Slack", "Zoom",
+        "Salesforce", "Adobe", "Cisco", "VMware", "Red Hat", "MongoDB"
+      ],
+      "placeholder_prefix": "ORG",
+      "description": "Organization names from static list"
+    }
+  },
+  "json_paths": [
+    "$.user.email",
+    "$.user.contact.email",
+    "$.user.work_email",
+    "$.server.ip",
+    "$.server.host",
+    "$.server.address",
+    "$.client.ip",
+    "$.client.address",
+    "$.company.name",
+    "$.organization",
+    "$.employer",
+    "$.contact.email",
+    "$.profile.email",
+    "$.account.email"
+  ],
+  "logging": {
+    "enabled": true,
+    "level": "INFO",
+    "include_request_id": true,
+    "max_log_size": 10485760
+  },
+  "performance": {
+    "max_buffer_size": 1048576,
+    "chunk_size": 8192,
+    "cleanup_interval": 300,
+    "max_mappings_per_request": 1000,
+    "max_memory_usage": 10485760
+  },
+  "security": {
+    "validate_json_paths": true,
+    "max_request_size": 10485760,
+    "timeout_seconds": 30
+  },
+  "features": {
+    "case_sensitive_matching": false,
+    "preserve_formatting": true,
+    "enable_statistics": true,
+    "enable_health_check": true
+  }
+}
+

@@ -1,0 +1,198 @@
+{
+  "test_cases": [
+    {
+      "name": "Simple user registration",
+      "request": {
+        "user": {
+          "name": "John Doe",
+          "email": "john.doe@example.com",
+          "company": "Google"
+        },
+        "server": {
+          "ip": "192.168.1.100"
+        }
+      },
+      "expected_patterns": ["email", "ipv4", "organizations"]
+    },
+    {
+      "name": "Complex nested data",
+      "request": {
+        "users": [
+          {
+            "id": 1,
+            "profile": {
+              "email": "alice@microsoft.com",
+              "work_email": "alice.smith@company.org"
+            },
+            "employer": "Microsoft"
+          },
+          {
+            "id": 2,
+            "contact": {
+              "email": "bob@amazon.com"
+            },
+            "organization": "Amazon"
+          }
+        ],
+        "client": {
+          "ip": "10.0.0.1",
+          "address": "172.16.0.1"
+        }
+      },
+      "expected_patterns": ["email", "ipv4", "organizations"]
+    },
+    {
+      "name": "Mixed content with multiple patterns",
+      "request": {
+        "message": "Please contact support@netflix.com or admin@apple.com for assistance. Server IP is 8.8.8.8 and backup is 1.1.1.1. This request is from Google datacenter.",
+        "metadata": {
+          "source_ip": "203.0.113.1",
+          "company": "Tesla",
+          "contact_email": "help@tesla.com"
+        }
+      },
+      "expected_patterns": ["email", "ipv4", "organizations"]
+    },
+    {
+      "name": "Edge case - empty and null values",
+      "request": {
+        "user": {
+          "email": "",
+          "name": null,
+          "company": "Facebook"
+        },
+        "server": {
+          "ip": null,
+          "backup_ip": "127.0.0.1"
+        }
+      },
+      "expected_patterns": ["ipv4", "organizations"]
+    },
+    {
+      "name": "Invalid email formats",
+      "request": {
+        "contacts": [
+          "invalid-email",
+          "user@",
+          "@domain.com",
+          "user@domain",
+          "valid@example.com"
+        ],
+        "company": "Oracle"
+      },
+      "expected_patterns": ["email", "organizations"]
+    },
+    {
+      "name": "Invalid IP formats",
+      "request": {
+        "servers": [
+          "256.256.256.256",
+          "192.168.1",
+          "192.168.1.1.1",
+          "192.168.1.1"
+        ],
+        "organization": "IBM"
+      },
+      "expected_patterns": ["ipv4", "organizations"]
+    },
+    {
+      "name": "Large payload stress test",
+      "request": {
+        "description": "This is a large payload test with multiple emails like user1@example.com, user2@test.org, admin@company.net and IPs like 192.168.1.1, 10.0.0.1, 172.16.0.1. Companies mentioned include Google, Microsoft, Amazon, Apple, Netflix, Tesla, and many more organizations.",
+        "data": {
+          "emails": [
+            "test1@domain1.com",
+            "test2@domain2.org",
+            "test3@domain3.net",
+            "test4@domain4.co.uk",
+            "test5@domain5.edu"
+          ],
+          "servers": [
+            "192.168.0.1",
+            "192.168.0.2", 
+            "192.168.0.3",
+            "10.1.1.1",
+            "10.1.1.2"
+          ],
+          "companies": [
+            "Google",
+            "Microsoft", 
+            "Amazon",
+            "Apple",
+            "Netflix"
+          ]
+        }
+      },
+      "expected_patterns": ["email", "ipv4", "organizations"]
+    },
+    {
+      "name": "No sensitive data",
+      "request": {
+        "message": "This is a simple message without any sensitive information",
+        "data": {
+          "numbers": [1, 2, 3, 4, 5],
+          "text": "Just some regular text content"
+        }
+      },
+      "expected_patterns": []
+    }
+  ],
+  "response_test_cases": [
+    {
+      "name": "Simple response with placeholders",
+      "response": {
+        "user": {
+          "email": "EMAIL_1",
+          "company": "ORG_1"
+        },
+        "server": {
+          "ip": "IP_1"
+        }
+      },
+      "description": "Response should have placeholders replaced with original values"
+    },
+    {
+      "name": "Stream response simulation",
+      "response": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\"user\":{\"email\":\"EMAIL_1\",\"company\":\"ORG_1\"},\"server\":{\"ip\":\"IP_1\"}}",
+      "description": "Simulates streaming response that needs chunk-by-chunk processing"
+    }
+  ],
+  "performance_test_cases": [
+    {
+      "name": "Large JSON payload",
+      "size_mb": 1,
+      "pattern_density": "high",
+      "description": "Test performance with 1MB JSON containing many sensitive patterns"
+    },
+    {
+      "name": "Many small requests",
+      "count": 1000,
+      "size_kb": 1,
+      "description": "Test performance with many small requests"
+    }
+  ],
+  "error_test_cases": [
+    {
+      "name": "Invalid JSON",
+      "request": "{invalid json content}",
+      "expected_behavior": "pass_through"
+    },
+    {
+      "name": "Non-JSON content",
+      "request": "This is plain text content",
+      "content_type": "text/plain",
+      "expected_behavior": "pass_through"
+    },
+    {
+      "name": "Empty request",
+      "request": "",
+      "expected_behavior": "pass_through"
+    },
+    {
+      "name": "Null request",
+      "request": null,
+      "expected_behavior": "pass_through"
+    }
+  ]
+}
+

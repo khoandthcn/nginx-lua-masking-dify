@@ -1,0 +1,139 @@
+{
+  "email": {
+    "enabled": true,
+    "regex": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z][a-zA-Z]+",
+    "placeholder_prefix": "EMAIL",
+    "validation": {
+      "min_length": 5,
+      "max_length": 254,
+      "require_tld": true,
+      "blocked_domains": ["example.com", "test.com", "localhost"]
+    },
+    "examples": [
+      "user@example.com",
+      "john.doe+newsletter@company.org",
+      "admin@sub.domain.co.uk"
+    ]
+  },
+  "ipv4": {
+    "enabled": true,
+    "regex": "\\d+\\.\\d+\\.\\d+\\.\\d+",
+    "placeholder_prefix": "IP",
+    "validation": {
+      "check_range": true,
+      "exclude_private": false,
+      "exclude_loopback": false,
+      "exclude_multicast": true
+    },
+    "examples": [
+      "192.168.1.1",
+      "10.0.0.1",
+      "172.16.0.1",
+      "8.8.8.8"
+    ]
+  },
+  "organizations": {
+    "enabled": true,
+    "placeholder_prefix": "ORG",
+    "static_list": [
+      "Google",
+      "Microsoft",
+      "Amazon",
+      "Facebook",
+      "Apple",
+      "Netflix",
+      "Tesla",
+      "Twitter",
+      "LinkedIn",
+      "Instagram",
+      "YouTube",
+      "GitHub",
+      "Oracle",
+      "IBM",
+      "Intel",
+      "AMD",
+      "NVIDIA",
+      "Samsung",
+      "Sony",
+      "LG",
+      "Alibaba",
+      "Tencent",
+      "Baidu",
+      "ByteDance",
+      "Xiaomi",
+      "Huawei",
+      "Spotify",
+      "Uber",
+      "Airbnb",
+      "Dropbox",
+      "Slack",
+      "Zoom",
+      "Salesforce",
+      "Adobe",
+      "Cisco",
+      "VMware",
+      "Red Hat",
+      "MongoDB",
+      "Atlassian",
+      "Shopify",
+      "Square",
+      "PayPal",
+      "Stripe",
+      "Twilio",
+      "Cloudflare",
+      "DigitalOcean",
+      "Linode",
+      "Vultr"
+    ],
+    "matching": {
+      "case_sensitive": false,
+      "whole_word_only": true,
+      "fuzzy_matching": false
+    },
+    "examples": [
+      "Google Inc.",
+      "Microsoft Corporation",
+      "Amazon Web Services"
+    ]
+  },
+  "phone_numbers": {
+    "enabled": false,
+    "regex": "\\+?[1-9]\\d{1,14}",
+    "placeholder_prefix": "PHONE",
+    "validation": {
+      "min_digits": 7,
+      "max_digits": 15,
+      "require_country_code": false
+    },
+    "examples": [
+      "+1234567890",
+      "123-456-7890",
+      "(123) 456-7890"
+    ]
+  },
+  "credit_cards": {
+    "enabled": false,
+    "regex": "\\b(?:\\d{4}[\\s-]?){3}\\d{4}\\b",
+    "placeholder_prefix": "CARD",
+    "validation": {
+      "luhn_check": true,
+      "mask_all_but_last_four": true
+    },
+    "examples": [
+      "4111-1111-1111-1111",
+      "5555 5555 5555 4444"
+    ]
+  },
+  "ssn": {
+    "enabled": false,
+    "regex": "\\b\\d{3}-\\d{2}-\\d{4}\\b",
+    "placeholder_prefix": "SSN",
+    "validation": {
+      "strict_format": true
+    },
+    "examples": [
+      "123-45-6789"
+    ]
+  }
+}
+

@@ -1,0 +1,188 @@
+{
+  "dify_integration": {
+    "version": "0.15.8",
+    "enabled": true,
+    "description": "Configuration for Dify v0.15.8 message API masking"
+  },
+  "endpoints": {
+    "chat_messages": {
+      "path": "/v1/chat-messages",
+      "method": "POST",
+      "enabled": true,
+      "request_paths": [
+        "$.query",
+        "$.inputs.message",
+        "$.inputs.user_input",
+        "$.inputs.context",
+        "$.conversation_id",
+        "$.user"
+      ],
+      "response_paths": [
+        "$.answer",
+        "$.message.answer",
+        "$.message.content",
+        "$.agent_thoughts[*].observation",
+        "$.agent_thoughts[*].tool_input"
+      ]
+    },
+    "completion_messages": {
+      "path": "/v1/completion-messages",
+      "method": "POST", 
+      "enabled": true,
+      "request_paths": [
+        "$.query",
+        "$.inputs.prompt",
+        "$.inputs.context",
+        "$.inputs.user_input"
+      ],
+      "response_paths": [
+        "$.answer",
+        "$.message.answer",
+        "$.message.content"
+      ]
+    },
+    "messages_list": {
+      "path": "/v1/messages",
+      "method": "GET",
+      "enabled": true,
+      "response_paths": [
+        "$.data[*].query",
+        "$.data[*].answer", 
+        "$.data[*].message.content",
+        "$.data[*].agent_thoughts[*].observation"
+      ]
+    },
+    "message_feedback": {
+      "path": "/v1/messages/{message_id}/feedbacks",
+      "method": "POST",
+      "enabled": true,
+      "request_paths": [
+        "$.rating",
+        "$.content"
+      ]
+    }
+  },
+  "patterns": {
+    "email": {
+      "enabled": true,
+      "regex": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z][a-zA-Z]+",
+      "placeholder_prefix": "EMAIL",
+      "description": "Email addresses in Dify messages"
+    },
+    "ipv4_private": {
+      "enabled": true,
+      "regex": "(\\d+\\.\\d+\\.\\d+\\.\\d+)",
+      "placeholder_prefix": "IP_PRIVATE",
+      "validator": "is_private_ipv4",
+      "description": "Private IPv4 addresses (RFC 1918)"
+    },
+    "ipv4_public": {
+      "enabled": true,
+      "regex": "(\\d+\\.\\d+\\.\\d+\\.\\d+)",
+      "placeholder_prefix": "IP_PUBLIC",
+      "validator": "is_public_ipv4",
+      "description": "Public IPv4 addresses"
+    },
+    "ipv6": {
+      "enabled": true,
+      "regex": "([0-9a-fA-F]*:+[0-9a-fA-F:]*)",
+      "placeholder_prefix": "IPV6",
+      "validator": "is_valid_ipv6",
+      "description": "IPv6 addresses"
+    },
+    "domains": {
+      "enabled": true,
+      "static_list": [
+        "google.com", "microsoft.com", "amazon.com", "facebook.com", "apple.com",
+        "netflix.com", "tesla.com", "twitter.com", "linkedin.com", "instagram.com",
+        "youtube.com", "github.com", "oracle.com", "ibm.com", "intel.com",
+        "amd.com", "nvidia.com", "samsung.com", "sony.com", "lg.com",
+        "openai.com", "anthropic.com", "cohere.ai", "huggingface.co",
+        "stackoverflow.com", "reddit.com", "discord.com", "slack.com",
+        "zoom.us", "teams.microsoft.com", "meet.google.com", "webex.com"
+      ],
+      "placeholder_prefix": "DOMAIN",
+      "case_sensitive": false,
+      "whole_words_only": true,
+      "description": "Common domain names in Dify messages"
+    },
+    "hostnames": {
+      "enabled": true,
+      "static_list": [
+        "localhost", "www", "api", "app", "web", "mail", "ftp", "ssh",
+        "db", "database", "cache", "redis", "mongo", "mysql", "postgres",
+        "server", "host", "node", "worker", "master", "slave", "primary",
+        "secondary", "backup", "staging", "prod", "production", "dev",
+        "development", "test", "testing", "qa", "uat", "demo",
+        "admin", "dashboard", "portal", "gateway", "proxy", "load-balancer",
+        "cdn", "static", "media", "assets", "files", "storage",
+        "auth", "login", "oauth", "sso", "ldap", "ad",
+        "monitor", "metrics", "logs", "analytics", "tracking"
+      ],
+      "placeholder_prefix": "HOSTNAME",
+      "case_sensitive": false,
+      "whole_words_only": true,
+      "description": "Common hostnames and service names in Dify messages"
+    },
+    "organizations": {
+      "enabled": true,
+      "static_list": [
+        "Google", "Microsoft", "Amazon", "Facebook", "Apple",
+        "OpenAI", "Anthropic", "Cohere", "Hugging Face", "DeepMind",
+        "NVIDIA", "Intel", "AMD", "IBM", "Oracle",
+        "Salesforce", "ServiceNow", "Snowflake", "Databricks", "Palantir",
+        "Netflix", "Tesla", "Twitter", "LinkedIn", "Instagram", "YouTube", "GitHub",
+        "Samsung", "Sony", "LG", "Uber", "Airbnb", "Spotify", "Dropbox", "Slack", "Zoom", "Discord"
+      ],
+      "placeholder_prefix": "ORG",
+      "case_sensitive": false,
+      "whole_words_only": true,
+      "description": "Organization names in Dify messages"
+    },
+    "phone_numbers": {
+      "enabled": false,
+      "regex": "\\+?[1-9]\\d{1,14}",
+      "placeholder_prefix": "PHONE",
+      "description": "Phone numbers (disabled by default)"
+    },
+    "credit_cards": {
+      "enabled": false,
+      "regex": "\\b(?:\\d{4}[\\s-]?){3}\\d{4}\\b",
+      "placeholder_prefix": "CARD",
+      "description": "Credit card numbers (disabled by default)"
+    }
+  },
+  "processing": {
+    "request_timeout": 5000,
+    "max_payload_size": 10485760,
+    "chunk_size": 8192,
+    "max_buffer_size": 1048576,
+    "enable_streaming": true,
+    "preserve_structure": true
+  },
+  "logging": {
+    "level": "INFO",
+    "enabled": true,
+    "include_payload_info": false,
+    "include_timing": true
+  },
+  "security": {
+    "mapping_ttl": 3600,
+    "max_mappings_per_request": 1000,
+    "enable_mapping_encryption": false,
+    "allowed_content_types": [
+      "application/json",
+      "application/json; charset=utf-8",
+      "text/json"
+    ]
+  },
+  "nginx": {
+    "access_phase": true,
+    "content_phase": true,
+    "body_filter_phase": true,
+    "log_phase": false,
+    "shared_dict_size": "10m",
+    "worker_connections": 1024
+  }
+}
+
