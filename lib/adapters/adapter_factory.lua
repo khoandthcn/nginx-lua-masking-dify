@@ -1,7 +1,7 @@
 -- Adapter Factory for Dify Multi-Version Support
 -- Creates appropriate adapter based on detected Dify version
 
-local utils = require("lib.utils")
+local utils = require("utils")
 
 local AdapterFactory = {}
 

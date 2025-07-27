@@ -1,8 +1,8 @@
 -- Dify v1.x Adapter (v1.7.0+)
 -- Handles Dify v1.x specific API format and enhanced features
 
-local BaseAdapter = require("lib.adapters.base_adapter")
-local utils = require("lib.utils")
+local BaseAdapter = require("adapters.base_adapter")
+local utils = require("utils")
 
 local DifyV1XAdapter = setmetatable({}, {__index = BaseAdapter})
 DifyV1XAdapter.__index = DifyV1XAdapter

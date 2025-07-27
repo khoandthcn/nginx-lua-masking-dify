@@ -1,8 +1,8 @@
 -- Dify v0.15.8 Adapter
 -- Handles Dify v0.15.x specific API format and features
 
-local BaseAdapter = require("lib.adapters.base_adapter")
-local utils = require("lib.utils")
+local BaseAdapter = require("adapters.base_adapter")
+local utils = require("utils")
 
 local DifyV015Adapter = setmetatable({}, {__index = BaseAdapter})
 DifyV015Adapter.__index = DifyV015Adapter

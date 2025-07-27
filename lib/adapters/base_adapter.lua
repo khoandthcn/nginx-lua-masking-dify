@@ -1,7 +1,7 @@
 -- Base Adapter Interface for Dify Multi-Version Support
 -- Abstract base class for version-specific adapters
 
-local utils = require("lib.utils")
+local utils = require("utils")
 
 local BaseAdapter = {}
 BaseAdapter.__index = BaseAdapter

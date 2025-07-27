@@ -1,7 +1,7 @@
 -- Version Detector Module for Dify Multi-Version Support
 -- Detects Dify version and determines compatibility
 
-local utils = require("lib.utils")
+local utils = require("utils")
 
 local VersionDetector = {}
 VersionDetector.__index = VersionDetector

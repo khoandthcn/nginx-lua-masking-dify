@@ -2,11 +2,11 @@
 -- Author: Manus AI
 -- Version: 1.0.0
 
-local utils = require("lib.utils")
-local pattern_matcher = require("lib.pattern_matcher")
-local json_processor = require("lib.json_processor")
-local stream_handler = require("lib.stream_handler")
-local mapping_store = require("lib.mapping_store")
+local utils = require("utils")
+local pattern_matcher = require("pattern_matcher")
+local json_processor = require("json_processor")
+local stream_handler = require("stream_handler")
+local mapping_store = require("mapping_store")
 
 local _M = {}
 

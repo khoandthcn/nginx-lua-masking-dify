@@ -2,7 +2,7 @@
 -- Author: Manus AI
 -- Version: 1.0.0
 
-local utils = require("lib.utils")
+local utils = require("utils")
 
 local _M = {}
 

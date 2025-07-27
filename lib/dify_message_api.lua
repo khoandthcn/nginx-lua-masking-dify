@@ -2,8 +2,8 @@
 -- Author: Manus AI
 -- Version: 1.0.0
 
-local utils = require("lib.utils")
-local dify_adapter = require("lib.dify_adapter")
+local utils = require("utils")
+local dify_adapter = require("dify_adapter")
 
 local _M = {}
 

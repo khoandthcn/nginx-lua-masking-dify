@@ -2,8 +2,8 @@
 -- Author: Manus AI
 -- Version: 1.0.0
 
-local utils = require("lib.utils")
-local masking_plugin = require("lib.masking_plugin")
+local utils = require("utils")
+local masking_plugin = require("masking_plugin")
 
 local _M = {}
 
